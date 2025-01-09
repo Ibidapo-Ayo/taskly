@@ -1,43 +1,70 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Platform } from 'react-native';
-
-import { HapticTab } from '@/components/HapticTab';
-import { IconSymbol } from '@/components/ui/IconSymbol';
-import TabBarBackground from '@/components/ui/TabBarBackground';
+import { Image, Platform, View } from 'react-native';
+import Feather from '@expo/vector-icons/Feather';
+import Ionicons from '@expo/vector-icons/Ionicons';
 import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
+import UserImage from "../../assets/images/profile_pic.jpg"
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
     <Tabs
       screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-        tabBarBackground: TabBarBackground,
-        tabBarStyle: Platform.select({
-          ios: {
-            // Use a transparent background on iOS to show the blur effect
-            position: 'absolute',
-          },
-          default: {},
-        }),
+        tabBarActiveTintColor: Colors.light.tint,
+        headerShown: true,
+        headerStyle: {
+          backgroundColor: "#000"
+        },
+        headerTitleAlign: "center",
       }}>
       <Tabs.Screen
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => <Feather name="home" size={24} color={color} />,
+          headerLeft: () => (
+            <View style={{
+              paddingHorizontal: 20,
+            }}>
+              <Ionicons name="filter" size={24} color="white" />
+            </View>
+          ),
+          headerTitle: "Taskly",
+          headerShadowVisible: false,
+          headerRight: () => (
+            <View style={{
+              paddingHorizontal: 20,
+            }}>
+              <Image source={UserImage}
+                style={{
+                  width: 35,
+                  height: 35,
+                  borderRadius: 100
+                }}
+              />
+            </View>
+          )
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="task"
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
+          title: 'Tasks',
+          tabBarIcon: ({ color }) => <Feather name="clipboard" size={24} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="earn"
+        options={{
+          title: 'Earn',
+          tabBarIcon: ({ color }) => <Ionicons name="cash" size={24} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Profile',
+          tabBarIcon: ({ color }) => <Feather name="user" size={24} color={color} />,
         }}
       />
     </Tabs>
