@@ -6,6 +6,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from '@expo/vector-icons/Feather';
 import { Colors } from '@/constants/Colors';
 import CreateTodo from '@/components/Create';
+import Progress from '@/components/Progress';
 
 
 const TodoCard = ({ item, onPress }: {
@@ -53,8 +54,11 @@ export default function HomeScreen() {
       paddingTop: 20,
       height: "100%",
     }}>
-      <View>
-        <Text style={{ color: "orange", marginBottom: 20 }}>Active Todos</Text>
+      <View style={{ gap: 30 }}>
+        <Progress />
+
+
+        <Text style={{ color: "orange"}}>Active Todos</Text>
         <FlatList
           data={todos}
           renderItem={({ item, index }) => (

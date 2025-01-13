@@ -1,6 +1,6 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Image, Platform, View } from 'react-native';
+import { Image, Platform, Text, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Colors } from '@/constants/Colors';
@@ -26,7 +26,10 @@ export default function TabLayout() {
             <View style={{
               paddingHorizontal: 20,
             }}>
-              <Ionicons name="filter" size={24} color="white" />
+             <View>
+              <Text style={{ color: Colors.secondary[200], fontWeight: "600", fontSize: 18 }}>Friday</Text>
+              <Text>January 10</Text>
+             </View>
             </View>
           ),
           headerTitle: "Taskly",
