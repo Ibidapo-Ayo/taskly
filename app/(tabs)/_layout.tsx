@@ -1,10 +1,11 @@
 import { Tabs } from 'expo-router';
 import React from 'react';
-import { Image, Platform, View } from 'react-native';
+import { Image, Platform, Text, View } from 'react-native';
 import Feather from '@expo/vector-icons/Feather';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { Colors } from '@/constants/Colors';
 import UserImage from "../../assets/images/profile_pic.jpg"
+import { generateDate } from '@/lib/helper';
 
 export default function TabLayout() {
   return (
@@ -17,6 +18,7 @@ export default function TabLayout() {
         },
         headerTitleAlign: "center",
       }}>
+        
       <Tabs.Screen
         name="index"
         options={{
@@ -26,7 +28,10 @@ export default function TabLayout() {
             <View style={{
               paddingHorizontal: 20,
             }}>
-              <Ionicons name="filter" size={24} color="white" />
+             <View>
+              <Text style={{ color: Colors.secondary[200], fontWeight: "600", fontSize: 16 }}>Friday</Text>
+              <Text style={{color: "white", fontSize: 18, fontFamily: "Inter_600SemiBold"}}>{generateDate()}</Text>
+             </View>
             </View>
           ),
           headerTitle: "Taskly",
@@ -34,7 +39,12 @@ export default function TabLayout() {
           headerRight: () => (
             <View style={{
               paddingHorizontal: 20,
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: 10
             }}>
+              <Feather name='bell' size={24} color={Colors.primary.DEFAULT} />
               <Image source={UserImage}
                 style={{
                   width: 35,

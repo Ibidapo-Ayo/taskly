@@ -1,11 +1,15 @@
 import { data } from '@/data/todo';
 import { Todo } from '@/types/types';
-import { useEffect, useRef, useState } from 'react';
+import { useContext, useEffect, useRef, useState } from 'react';
 import { Image, StyleSheet, View, FlatList, Text, TouchableOpacity, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Feather from '@expo/vector-icons/Feather';
 import { Colors } from '@/constants/Colors';
 import CreateTodo from '@/components/Create';
+import Progress from '@/components/Progress';
+import { TasklyContext } from '@/context/TodoAppContext';
+
+
 
 
 const TodoCard = ({ item, onPress }: {
@@ -33,10 +37,10 @@ const TodoCard = ({ item, onPress }: {
 }
 
 export default function HomeScreen() {
-  const [todos, setTodos] = useState(data.sort((a, b) => b.id - a.id).slice(0, 5))
+  const {todos, setTodos} = useContext(TasklyContext)
   const [text, setText] = useState("")
 
-  const bottomSheetRef = useRef()
+  const bottomSheetRef = useRef(null)
   const textInputRef = useRef<TextInput>(null)
   const [openSheet, setOpenSheet] = useState(false)
 
@@ -50,21 +54,22 @@ export default function HomeScreen() {
   return (
     <SafeAreaView style={{
       paddingHorizontal: 20,
-      paddingTop: 20,
+      paddingVertical: 20,
       height: "100%",
     }}>
-      <View>
-        <Text style={{ color: "orange", marginBottom: 20 }}>Active Todos</Text>
+      <View style={{ gap: 30 }}>
+        <Progress />
+        <Text style={{ color: "orange" }}>Active Todos</Text>
+
         <FlatList
           data={todos}
           renderItem={({ item, index }) => (
             <TodoCard key={item.id} item={item} onPress={() => updateTodo(item.id)} />
           )}
         />
+        
       </View>
-      <TouchableOpacity activeOpacity={0.7} style={styles.addTodoBtn} onPress={() => {
-        bottomSheetRef.current.open()
-      }}>
+      <TouchableOpacity activeOpacity={0.7} style={styles.addTodoBtn} onPress={() => {bottomSheetRef.current?.open()}}>
         <Feather name="plus" size={30} color="white" style={{ textAlign: "center" }} />
       </TouchableOpacity>
 
@@ -72,9 +77,9 @@ export default function HomeScreen() {
         bottomSheetRef={bottomSheetRef}
       >
         <View style={styles.addTodoContainer}>
-        <TextInput placeholder='What would you like to do?' placeholderTextColor={Colors.secondary[200]} multiline={true} style={styles.input} />
+          <TextInput placeholder='What would you like to do?' placeholderTextColor={Colors.secondary[200]} multiline={true} style={styles.input} />
 
-        <View><Text>Today</Text></View>
+          <View><Text>Today</Text></View>
         </View>
       </CreateTodo>
     </SafeAreaView>
