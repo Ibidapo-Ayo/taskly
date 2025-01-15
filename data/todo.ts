@@ -4,7 +4,7 @@ export const data:Todo[] = [
     {
         "id": 1,
         "title": "Finish reading the book",
-        "completed": true
+        "completed": false
     },
     {
         "id": 2,
@@ -14,7 +14,7 @@ export const data:Todo[] = [
     {
         "id": 3,
         "title": "Write a blog post",
-        "completed": true
+        "completed": false
     },
     {
         "id": 4,
